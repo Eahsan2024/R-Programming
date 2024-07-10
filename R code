@@ -1,0 +1,69 @@
+ 
+# Install the R6 package if it is not already installed
+install.packages("R6")
+
+# Load the R6 package to use R6 classes
+library(R6)
+
+# Define an R6 class named CacheMatrix
+CacheMatrix <- R6Class(
+  "CacheMatrix",
+  
+  # Define private members that cannot be accessed directly from outside the class
+  private = list(
+    x = NULL,   # The matrix
+    inv = NULL  # The cached inverse of the matrix
+  ),
+  
+  # Define public methods that can be accessed from outside the class
+  public = list(
+    
+    # Method to set the matrix and clear the cached inverse
+    set = function(y) {
+      private$x <- y
+      private$inv <- NULL
+    },
+    
+    # Method to get the matrix
+    get = function() {
+      private$x
+    },
+    
+    # Method to set the cached inverse of the matrix
+    setInverse = function(inverse) {
+      private$inv <- inverse
+    },
+    
+    # Method to get the cached inverse of the matrix
+
+
+    getInverse = function() {
+      private$inv
+    }
+  )
+)
+
+# Example usage of the CacheMatrix class
+
+# Create a new CacheMatrix object
+cacheMatrix <- CacheMatrix$new()
+
+# Set the matrix to a 2x2 matrix with elements 1 to 4
+cacheMatrix$set(matrix(1:4, 2, 2))
+
+# Get and print the matrix
+cacheMatrix$get()          # Returns the matrix
+
+# Compute the inverse of the matrix and cache it
+cacheMatrix$setInverse(solve(cacheMatrix$get()))
+
+# Get and print the cached inverse of the matrix
+cacheMatrix$getInverse()   # Returns the cached inverse
+
+ 
+ 
+
+
+
+
+
